@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.vault</groupId>
-    <artifactId>Ubisoft-Api</artifactId>
+    <artifactId>Ubisoft-Rainbow-Six-Api</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
