@@ -1,5 +1,6 @@
 package de.vault.service;
 
+import de.vault.models.Profile;
 import de.vault.models.UbisoftTicket;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +10,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -21,10 +23,20 @@ public class UbiRainbowSixApi {
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
+    /**
+     * Requests an {@link UbisoftTicket} from ubisoft-services with old app id
+     *
+     * @return {@link UbisoftTicket}
+     */
     private UbisoftTicket getOldUbisoftTicket() {
         return getUbisoftTicket(true);
     }
 
+    /**
+     * Requests an {@link UbisoftTicket} from ubisoft-services with new app id
+     *
+     * @return {@link UbisoftTicket}
+     */
     private UbisoftTicket getUbisoftTicket() {
         return getUbisoftTicket(false);
     }
@@ -39,7 +51,26 @@ public class UbiRainbowSixApi {
                 " "
         );
 
-        return new UbisoftTicketParser().toTicket(response);
+        return UbisoftTicketParser.toTicket(response, old);
+    }
+
+    /**
+     * Searches for {@link Profile} based on given searchQuery
+     *
+     * @param ticket Old {@link UbisoftTicket}
+     * @param searchQuery Name of profile to search for
+     * @return List of {@link Profile}
+     */
+    public List<Profile> searchProfile(UbisoftTicket ticket, String searchQuery) {
+        final var response =  sendRequest(
+                "GET",
+                UBISOFT_PUBLIC_SERVICES_URL + "v2/profiles?platformType=uplay&nameOnPlatform=" + searchQuery,
+                Map.of("Content-Type", "application/json",
+                        "ubi-appid", config.getUbiAppIdOld(),
+                        "Authorization", "Ubi_v1 t=" + ticket.getTicket())
+        );
+
+        return ProfileParser.toProfile(response);
     }
 
     private String sendRequest(String method, String url, Map<String, String> headers) {

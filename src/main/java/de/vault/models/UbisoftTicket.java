@@ -23,4 +23,5 @@ public class UbisoftTicket {
     private Instant serverTime;
     private String sessionId;
     private String sessionKey;
+    private boolean isOld;
 }

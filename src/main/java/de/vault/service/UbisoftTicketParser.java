@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import java.time.Instant;
 
 class UbisoftTicketParser {
-    protected UbisoftTicket toTicket(String json) {
+    protected static UbisoftTicket toTicket(String json, boolean old) {
         final var jsonObject = new JSONObject(json);
 
         if (jsonObject.isEmpty()) {
@@ -26,6 +26,7 @@ class UbisoftTicketParser {
                 .setClientCountry(Utils.getJsonString(jsonObject, "clientIpCountry"))
                 .setServerTime(Instant.parse(Utils.getJsonString(jsonObject, "serverTime")))
                 .setSessionId(Utils.getJsonString(jsonObject, "sessionId"))
-                .setSessionKey(Utils.getJsonString(jsonObject, "sessionKey"));
+                .setSessionKey(Utils.getJsonString(jsonObject, "sessionKey"))
+                .setOld(old);
     }
 }
