@@ -14,10 +14,30 @@ import java.util.Map;
 @NoArgsConstructor
 @Data
 public class UbiRainbowSixApi {
+    private static final String UBISOFT_PUBLIC_SERVICES_URL = "https://public-ubiservices.ubi.com/";
+
     private UbiRainbowSixApiConfig config = new UbiRainbowSixApiConfig();
+
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
+    private String getOldUbisoftTicket() {
+        return getUbisoftTicket(true);
+    }
 
+    private String getUbisoftTicket() {
+        return getUbisoftTicket(false);
+    }
+
+    private String getUbisoftTicket(boolean old) {
+        return sendRequest(
+                "POST",
+                UBISOFT_PUBLIC_SERVICES_URL + "v3/profiles/sessions",
+                Map.of("Content-Type", "application/json",
+                        "ubi-appid", old ? config.getUbiAppIdOld() : config.getUbiAppId(),
+                        "Authorization", "Basic " + config.getAuthorizationToken()),
+                " "
+        );
+    }
 
     private String sendRequest(String method, String url, Map<String, String> headers) {
         return sendRequest(method, url, headers, null);

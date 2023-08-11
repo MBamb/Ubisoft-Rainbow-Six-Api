@@ -17,6 +17,10 @@ public class UbiRainbowSixApiConfig {
      */
     private String ubiAppIdOld = "";
     /**
+     * Authorization token to be sent with when requesting a new ubisoft ticket
+     */
+    private String authorizationToken = "";
+    /**
      * How often a request should be retried if request returns a non 2XX status code
      */
     private int retriesOnError = 0;
