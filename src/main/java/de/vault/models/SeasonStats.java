@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class SeasonStats {
+    private GameMode gameMode;
     private String id;
     private long maxRank;
     private long maxRankPoints;
@@ -20,5 +21,4 @@ public class SeasonStats {
     private long matchesWon;
     private long matchesLost;
     private long matchesAbandoned;
-    private GameMode gameMode;
 }
