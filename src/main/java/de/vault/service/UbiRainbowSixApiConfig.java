@@ -16,4 +16,8 @@ public class UbiRainbowSixApiConfig {
      * App id to be sent with requests concerning seasons before SOLAR RAID
      */
     private String ubiAppIdOld = "";
+    /**
+     * How often a request should be retried if request returns a non 2XX status code
+     */
+    private int retriesOnError = 0;
 }
