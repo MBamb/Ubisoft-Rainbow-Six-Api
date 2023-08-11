@@ -1,5 +1,6 @@
 package de.vault.service;
 
+import de.vault.models.UbisoftTicket;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,16 +21,16 @@ public class UbiRainbowSixApi {
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
-    private String getOldUbisoftTicket() {
+    private UbisoftTicket getOldUbisoftTicket() {
         return getUbisoftTicket(true);
     }
 
-    private String getUbisoftTicket() {
+    private UbisoftTicket getUbisoftTicket() {
         return getUbisoftTicket(false);
     }
 
-    private String getUbisoftTicket(boolean old) {
-        return sendRequest(
+    private UbisoftTicket getUbisoftTicket(boolean old) {
+        final var response = sendRequest(
                 "POST",
                 UBISOFT_PUBLIC_SERVICES_URL + "v3/profiles/sessions",
                 Map.of("Content-Type", "application/json",
@@ -37,6 +38,8 @@ public class UbiRainbowSixApi {
                         "Authorization", "Basic " + config.getAuthorizationToken()),
                 " "
         );
+
+        return new UbisoftTicketParser().toTicket(response);
     }
 
     private String sendRequest(String method, String url, Map<String, String> headers) {
