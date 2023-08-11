@@ -20,5 +20,5 @@ public class SeasonStats {
     private long matchesWon;
     private long matchesLost;
     private long matchesAbandoned;
-    private SeasonStatsGameMode gameMode;
+    private GameMode gameMode;
 }

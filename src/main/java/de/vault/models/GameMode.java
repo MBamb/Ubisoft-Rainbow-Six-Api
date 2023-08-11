@@ -1,5 +1,5 @@
 package de.vault.models;
 
-public enum SeasonStatsGameMode {
+public enum GameMode {
     RANKED, CASUAL, EVENT, WARMUP
 }
