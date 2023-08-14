@@ -74,10 +74,20 @@ public class UbiRainbowSixApi {
         return ProfileParser.toProfile(response);
     }
 
+    /**
+     * Get a list of {@link GeneralStats} for a player based on the given parameters: {@link GameMode} and {@link TeamRole}
+     *
+     * @param ticket    Old {@link UbisoftTicket}
+     * @param profileId Profile id of the player to get stats for
+     * @param gameModes List of {@link GameMode} to get stats for
+     * @param teamRoles List of {@link TeamRole} to get stats for
+     * @return List of {@link GeneralStats}
+     */
     public List<GeneralStats> getGeneralStats(UbisoftTicket ticket, String profileId, List<GameMode> gameModes, List<TeamRole> teamRoles) {
         final var gameModesString = gameModes
                 .stream()
                 .map(Enum::name)
+                .map(String::toLowerCase)
                 .collect(Collectors.joining(","));
 
         final var teamRolesString = teamRoles
@@ -100,7 +110,7 @@ public class UbiRainbowSixApi {
                         "Authorization", "Ubi_v1 t=" + ticket.getTicket())
         );
 
-        return null;
+        return GeneralStatsParser.toGeneralStats(response);
     }
 
     private String sendRequest(String method, String url, Map<String, String> headers) {
