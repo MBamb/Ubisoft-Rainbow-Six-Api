@@ -57,7 +57,7 @@ public class GeneralStatsParser {
 
         final var jsonObject = (JSONObject) jsonArray.get(0);
 
-        return new GeneralStats()
+        return (GeneralStats) new GeneralStats()
                 .setGameMode(gameMode)
                 .setTeamRole(teamRole)
                 .setMatchesPlayed(Utils.getJsonInt(jsonObject, "matchesPlayed"))

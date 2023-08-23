@@ -1,7 +1,7 @@
 package de.vault.service;
 
 import de.vault.models.GameMode;
-import de.vault.models.MapStats;
+import de.vault.models.OperatorsStats;
 import de.vault.models.TeamRole;
 import org.json.JSONObject;
 
@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class MapStatsParser {
-    protected static List<MapStats> toMapStats(String json) {
+public class OperatorStatsParser {
+    protected static List<OperatorsStats> toOperatorStats(String json) {
         final var jsonObject = new JSONObject(json);
 
         if (jsonObject.isEmpty()) {
@@ -27,15 +27,15 @@ public class MapStatsParser {
         return mapGameModes(gameModesJson);
     }
 
-    private static List<MapStats> mapGameModes(JSONObject json) {
+    private static List<OperatorsStats> mapGameModes(JSONObject json) {
         return Arrays.stream(GameMode.values())
                 .map(gameMode -> mapTeamRoles(json, gameMode))
-                .filter(mapStats -> !mapStats.isEmpty())
+                .filter(operatorStats -> !operatorStats.isEmpty())
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
     }
 
-    private static List<MapStats> mapTeamRoles(JSONObject json, GameMode gameMode) {
+    private static List<OperatorsStats> mapTeamRoles(JSONObject json, GameMode gameMode) {
         final var gameModeName = gameMode.name().toLowerCase();
 
         final var gameModeJson = json.getJSONObject(gameModeName);
@@ -46,12 +46,12 @@ public class MapStatsParser {
 
         return Arrays
                 .stream(TeamRole.values())
-                .map(teamRole -> mapMapStats(gameModeJson.getJSONObject("teamRoles"), gameMode, teamRole))
+                .map(teamRole -> mapOperatorStats(gameModeJson.getJSONObject("teamRoles"), gameMode, teamRole))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
-    private static MapStats mapMapStats(JSONObject json, GameMode gameMode, TeamRole teamRole) {
+    private static OperatorsStats mapOperatorStats(JSONObject json, GameMode gameMode, TeamRole teamRole) {
         final var jsonArray = json.getJSONArray(teamRole.getQueryName());
 
         if (jsonArray.isEmpty()) {
@@ -60,10 +60,10 @@ public class MapStatsParser {
 
         final var jsonObject = (JSONObject) jsonArray.get(0);
 
-        return (MapStats) new MapStats()
+        return (OperatorsStats) new OperatorsStats()
                 .setGameMode(gameMode)
                 .setTeamRole(teamRole)
-                .setMap(Utils.getJsonString(jsonObject, "statsDetail"))
+                .setOperator(Utils.getJsonString(jsonObject, "statsDetail"))
                 .setSeasonYear(Utils.getJsonString(jsonObject, "seasonYear").charAt(1))
                 .setSeasonNumber(Utils.getJsonString(jsonObject, "seasonNumber").charAt(1))
                 .setMatchesPlayed(Utils.getJsonInt(jsonObject, "matchesPlayed"))
@@ -101,5 +101,4 @@ public class MapStatsParser {
                 .setTimeAlivePerMatch(Utils.getJsonFloat(jsonObject, "timeAlivePerMatch"))
                 .setTimeDeadPerMatch(Utils.getJsonFloat(jsonObject, "timeDeadPerMatch"))
                 .setDistancePerRound(Utils.getJsonFloat(jsonObject, "distancePerRound")) ;
-    }
 }
