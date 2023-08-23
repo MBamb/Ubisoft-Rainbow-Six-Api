@@ -1,5 +1,12 @@
 package de.vault.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class MapStats {
     private GameMode gameMode;
     private TeamRole teamRole;
@@ -15,7 +22,7 @@ public class MapStats {
     private long roundsLost;
     private long kills;
     private long assists;
-    private long death;
+    private long deaths;
     private long headshots;
     private long meleeKills;
     private long teamKills;

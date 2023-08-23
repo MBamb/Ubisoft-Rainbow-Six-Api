@@ -113,6 +113,47 @@ public class UbiRainbowSixApi {
         return GeneralStatsParser.toGeneralStats(response);
     }
 
+    /**
+     * Get a list of {@link MapStats} for a player based on the given parameters: season, {@link GameMode} and {@link TeamRole}
+     *
+     * @param ticket    Old {@link UbisoftTicket}
+     * @param profileId Profile id of the player to get stats for
+     * @param season    Season to get stats for. Pattern e.g. "Y8S1"
+     * @param gameModes List of {@link GameMode} to get stats for
+     * @param teamRoles List of {@link TeamRole} to get stats for
+     * @return List of {@link MapStats}
+     */
+    public List<MapStats> getMapData(UbisoftTicket ticket, String profileId, String season, List<GameMode> gameModes, List<TeamRole> teamRoles) {
+        final var gameModesString = gameModes
+                .stream()
+                .map(Enum::name)
+                .map(String::toLowerCase)
+                .collect(Collectors.joining(","));
+
+        final var teamRolesString = teamRoles
+                .stream()
+                .map(TeamRole::getQueryName)
+                .collect(Collectors.joining(","));
+
+        final var response = sendRequest(
+                "GET",
+                "https://prod.datadev.ubisoft.com/v1/profiles/" + profileId + "/playerstats" +
+                        "?spaceId=5172a557-50b5-4665-b7db-e3f2e8c5041d" +
+                        "&view=seasonal&aggregation=maps" +
+                        "&gameMode=" + gameModesString +
+                        "&platform=PC&teamRole=" + teamRolesString +
+                        "&seasons=" + season,
+                Map.of("Content-Type", "application/json",
+                        "ubi-appid", config.getUbiAppIdOld(),
+                        "Ubi-SessionId", ticket.getSessionId(),
+                        "authority", "r6s-stats.ubisoft.com",
+                        "expiration", ticket.getExpiration().toString(),
+                        "Authorization", "Ubi_v1 t=" + ticket.getTicket())
+        );
+
+        return MapStatsParser.toMapStats(response);
+    }
+
     private String sendRequest(String method, String url, Map<String, String> headers) {
         return sendRequest(method, url, headers, null);
     }
