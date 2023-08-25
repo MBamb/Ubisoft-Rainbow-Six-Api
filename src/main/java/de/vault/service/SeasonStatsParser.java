@@ -32,22 +32,6 @@ public class SeasonStatsParser {
                 .collect(Collectors.toList());
     }
 
-    private static List<GeneralStats> mapTeamRoles(JSONObject json, GameMode gameMode) {
-        final var gameModeName = gameMode.name().toLowerCase();
-
-        final var gameModeJson = json.getJSONObject(gameModeName);
-
-        if (gameModeJson.isEmpty()) {
-            return Collections.emptyList();
-        }
-
-        return Arrays
-                .stream(TeamRole.values())
-                .map(teamRole -> mapSeasonStats(gameModeJson.getJSONObject("teamRoles"), gameMode, teamRole))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-    }
-
     private static SeasonStats mapSeasonStats(JSONArray json, GameMode gameMode) {
         if (json.isEmpty()) {
             return null;

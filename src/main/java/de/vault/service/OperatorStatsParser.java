@@ -100,5 +100,6 @@ public class OperatorStatsParser {
                 .setRoundsWithClutch(Utils.getJsonFloatFromValue(jsonObject, "roundsWithClutch"))
                 .setTimeAlivePerMatch(Utils.getJsonFloat(jsonObject, "timeAlivePerMatch"))
                 .setTimeDeadPerMatch(Utils.getJsonFloat(jsonObject, "timeDeadPerMatch"))
-                .setDistancePerRound(Utils.getJsonFloat(jsonObject, "distancePerRound")) ;
+                .setDistancePerRound(Utils.getJsonFloat(jsonObject, "distancePerRound"));
+    }
 }
