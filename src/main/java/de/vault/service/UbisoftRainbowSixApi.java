@@ -29,7 +29,7 @@ public class UbisoftRainbowSixApi {
      *
      * @return {@link UbisoftTicket}
      */
-    private UbisoftTicket getOldUbisoftTicket() {
+    public UbisoftTicket getOldUbisoftTicket() {
         return getUbisoftTicket(true);
     }
 
@@ -38,7 +38,7 @@ public class UbisoftRainbowSixApi {
      *
      * @return {@link UbisoftTicket}
      */
-    private UbisoftTicket getUbisoftTicket() {
+    public UbisoftTicket getUbisoftTicket() {
         return getUbisoftTicket(false);
     }
 

@@ -67,7 +67,7 @@ public class BombsiteStatsParser {
                 .setSeasonYear(Utils.getJsonString(jsonObject, "seasonYear").charAt(1))
                 .setSeasonNumber(Utils.getJsonString(jsonObject, "seasonNumber").charAt(1))
                 .setMatchesPlayed(Utils.getJsonInt(jsonObject, "matchesPlayed"))
-                .setRoundsPlayed(Utils.getJsonInt(jsonObject, "roundsPlayer"))
+                .setRoundsPlayed(Utils.getJsonInt(jsonObject, "roundsPlayed"))
                 .setMinutesPlayed(Utils.getJsonInt(jsonObject, "minutesPlayed"))
                 .setMatchesWon(Utils.getJsonInt(jsonObject, "matchesWon"))
                 .setMatchesLost(Utils.getJsonInt(jsonObject, "matchesLost"))

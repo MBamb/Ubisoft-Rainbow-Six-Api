@@ -61,7 +61,7 @@ public class GeneralStatsParser {
                 .setGameMode(gameMode)
                 .setTeamRole(teamRole)
                 .setMatchesPlayed(Utils.getJsonInt(jsonObject, "matchesPlayed"))
-                .setRoundsPlayed(Utils.getJsonInt(jsonObject, "roundsPlayer"))
+                .setRoundsPlayed(Utils.getJsonInt(jsonObject, "roundsPlayed"))
                 .setMinutesPlayed(Utils.getJsonInt(jsonObject, "minutesPlayed"))
                 .setMatchesWon(Utils.getJsonInt(jsonObject, "matchesWon"))
                 .setMatchesLost(Utils.getJsonInt(jsonObject, "matchesLost"))
