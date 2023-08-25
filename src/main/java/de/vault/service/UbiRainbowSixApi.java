@@ -75,6 +75,30 @@ public class UbiRainbowSixApi {
     }
 
     /**
+     * Get a list of {@link SeasonStats} for season since Ranked 2.0
+     *
+     * @param ticket    New {@link UbisoftTicket}
+     * @param profileId Profile id of the player to get stats for
+     * @return List of {@link SeasonStats}
+     */
+    public List<SeasonStats> getNewSeasonStats(UbisoftTicket ticket, String profileId) {
+        final var response = sendRequest(
+                "GET",
+                UBISOFT_PUBLIC_SERVICES_URL + "v2/spaces/0d2ae42d-4c27-4cb7-af6c-2099062302bb/title/r6s/skill/full_profiles" +
+                        "?platform_families=pc" +
+                        "&profile_ids=" + profileId,
+                Map.of("Content-Type", "application/json",
+                        "Ubi-AppId", config.getUbiAppIdOld(),
+                        "Ubi-SessionId", ticket.getSessionId(),
+                        "authority", "r6s-stats.ubisoft.com",
+                        "expiration", ticket.getExpiration().toString(),
+                        "Authorization", "Ubi_v1 t=" + ticket.getTicket())
+        );
+
+        return SeasonStatsParser.toSeasonStats(response);
+    }
+
+    /**
      * Get a list of {@link GeneralStats} for a player based on the given parameters: {@link GameMode} and {@link TeamRole}
      *
      * @param ticket    Old {@link UbisoftTicket}
