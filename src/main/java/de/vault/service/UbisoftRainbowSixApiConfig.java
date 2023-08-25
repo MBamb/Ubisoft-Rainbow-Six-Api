@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UbiRainbowSixApiConfig {
+public class UbisoftRainbowSixApiConfig {
     /**
      * App id to be sent with requests concerning seasons SOLAR RAID and newer
      */

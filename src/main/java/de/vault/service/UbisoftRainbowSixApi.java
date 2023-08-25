@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UbiRainbowSixApi {
+public class UbisoftRainbowSixApi {
     private static final String UBISOFT_PUBLIC_SERVICES_URL = "https://public-ubiservices.ubi.com/";
     private static final String UBISOFT_PROD_DATA_DEV_URL = "https://prod.datadev.ubisoft.com/";
 
-    private UbiRainbowSixApiConfig config = new UbiRainbowSixApiConfig();
+    private UbisoftRainbowSixApiConfig config = new UbisoftRainbowSixApiConfig();
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
