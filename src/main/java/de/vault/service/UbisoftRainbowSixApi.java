@@ -179,16 +179,16 @@ public class UbisoftRainbowSixApi {
     }
 
     /**
-     * Get a list of {@link OperatorsStats} for a player based on the given parameters: season, {@link GameMode} and {@link TeamRole}
+     * Get a list of {@link OperatorStats} for a player based on the given parameters: season, {@link GameMode} and {@link TeamRole}
      *
      * @param ticket    Old {@link UbisoftTicket}
      * @param profileId Profile id of the player to get stats for
      * @param season    Season to get stats for. Pattern e.g. "Y8S1"
      * @param gameModes List of {@link GameMode} to get stats for
      * @param teamRoles List of {@link TeamRole} to get stats for
-     * @return List of {@link OperatorsStats}
+     * @return List of {@link OperatorStats}
      */
-    public List<OperatorsStats> getOperatorData(UbisoftTicket ticket, String profileId, String season, List<GameMode> gameModes, List<TeamRole> teamRoles) {
+    public List<OperatorStats> getOperatorData(UbisoftTicket ticket, String profileId, String season, List<GameMode> gameModes, List<TeamRole> teamRoles) {
         final var gameModesString = gameModes
                 .stream()
                 .map(Enum::name)

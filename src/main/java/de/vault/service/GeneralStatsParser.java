@@ -3,6 +3,7 @@ package de.vault.service;
 import de.vault.models.GameMode;
 import de.vault.models.GeneralStats;
 import de.vault.models.TeamRole;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.*;
@@ -10,18 +11,22 @@ import java.util.stream.Collectors;
 
 public class GeneralStatsParser {
     protected static List<GeneralStats> toGeneralStats(String json) {
-        final var jsonObject = new JSONObject(json);
+        try {
+            final var jsonObject = new JSONObject(json);
 
-        if (jsonObject.isEmpty()) {
-            throw new RuntimeException("Failed to get ticket. Json is empty");
+            if (jsonObject.isEmpty()) {
+                throw new RuntimeException("Failed to get general stats. Json is empty");
+            }
+
+            final var gameModesJson = jsonObject
+                    .getJSONObject("platforms")
+                    .getJSONObject("PC")
+                    .getJSONObject("gameModes");
+
+            return mapGameModes(gameModesJson);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to get general stats. Json is empty");
         }
-
-        final var gameModesJson = jsonObject
-                .getJSONObject("platforms")
-                .getJSONObject("PC")
-                .getJSONObject("gameModes");
-
-        return mapGameModes(gameModesJson);
     }
 
     private static List<GeneralStats> mapGameModes(JSONObject json) {
@@ -35,7 +40,13 @@ public class GeneralStatsParser {
     private static List<GeneralStats> mapTeamRoles(JSONObject json, GameMode gameMode) {
         final var gameModeName = gameMode.name().toLowerCase();
 
-        final var gameModeJson = json.getJSONObject(gameModeName);
+        JSONObject gameModeJson;
+
+        try {
+            gameModeJson = json.getJSONObject(gameModeName);
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
 
         if (gameModeJson.isEmpty()) {
             return Collections.emptyList();
@@ -49,7 +60,14 @@ public class GeneralStatsParser {
     }
 
     private static GeneralStats mapGeneralStats(JSONObject json, GameMode gameMode, TeamRole teamRole) {
-        final var jsonArray = json.getJSONArray(teamRole.getQueryName());
+        JSONArray jsonArray;
+
+        try {
+            jsonArray = json.getJSONArray(teamRole.getQueryName());
+        } catch (Exception e) {
+            return null;
+        }
+
 
         if (jsonArray.isEmpty()) {
             return null;

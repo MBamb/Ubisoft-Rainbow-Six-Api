@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class OperatorsStats extends Stats {
+public class OperatorStats extends Stats {
     private GameMode gameMode;
     private TeamRole teamRole;
     private String operator;
