@@ -3,8 +3,6 @@
 A Java API to handle authorization and requests regarding the Rainbow Six Siege API. Providing a clean and easy way to use the Rainbow Six Siege API.
 
 
-## Badges
-
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
 
