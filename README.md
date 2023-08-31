@@ -14,11 +14,16 @@ A Java API to handle authorization and requests regarding the Rainbow Six Siege 
 
 ## Features
 
-- Season stats (Ranked 1.0 and 2.0)
+- Season stats (Ranked 2.0)
 - Overall stats
 - Operator stats
 - Map stats
 - Bombsite stats
+
+## Features to be implemented
+
+- Season stats (Ranked 1.0)
+- Weapon stats
 
 ## Quickstart
 
