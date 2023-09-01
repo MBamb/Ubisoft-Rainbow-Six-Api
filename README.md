@@ -22,6 +22,7 @@ A Java API to handle authorization and requests regarding the Rainbow Six Siege 
 
 - Season stats (Ranked 1.0)
 - Weapon stats
+- Support for non PC platforms
 
 ## Quickstart
 
